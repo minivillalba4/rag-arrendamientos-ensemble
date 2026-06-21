@@ -1,24 +1,21 @@
-from config import *
+from langchain_chroma import Chroma
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_chroma import Chroma
+from config import *
+
+loader=PyPDFDirectoryLoader("./data")
+documents=loader.load()
+
+print(len(documents))
 
 
-document_loader=PyPDFDirectoryLoader(UBICACION_PDFS)
-documentos=document_loader.load()
-print(f"se cargadon {len(documentos)} paginas de documentos")
 
-text_splitter=RecursiveCharacterTextSplitter(chunk_size=1200 ,chunk_overlap=450)
-
-splits=text_splitter.split_documents(documents=documentos)
-
+splitter=RecursiveCharacterTextSplitter(chunk_size=700,
+                                        chunk_overlap=250)
+splits=splitter.split_documents(documents=documents)
 print(len(splits))
 
-print(f"se crearon {len(splits)} chunks de texto")
+vector_store=Chroma.from_documents(splits,
+                                   embedding=EMBEDDING ,
+                                   persist_directory="./data/bbdd_vect")
 
-
-vector_store=Chroma.from_documents(documents=splits,
-                                   embedding=embeddings,
-                                   persist_directory=PERSIST_DIR)
-
-print(f"Base de datos vectorial creada en {PERSIST_DIR}")
