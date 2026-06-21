@@ -9,21 +9,6 @@ como base de datos vectorial y un *ensemble retriever* (MultiQuery + MMR).
 - Python 3.10+
 - Una clave de API de OpenAI
 
-## Instalación
-
-```bash
-# 1. Crear y activar un entorno virtual
-python -m venv .venv
-.venv\Scripts\activate        # En Windows
-# source .venv/bin/activate   # En macOS/Linux
-
-# 2. Instalar dependencias
-pip install -r requirements.txt
-
-# 3. Configurar las claves
-copy .env.example .env        # En Windows (cp en macOS/Linux)
-# Edita .env y pon tu clave real de OPENAI_API_KEY
-```
 
 ## Uso
 
